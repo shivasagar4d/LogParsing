@@ -22,8 +22,8 @@ object LogParsingUsingDOM {
     //logger instance 
     val logger = LoggerFactory.getLogger(this.getClass.toString())
     
-    if (args.length < 5) {
-      logger.error("Invalid Number of input arguments! Expected 5 but found " + args.length)
+    if (args.length < 6) {
+      logger.error("Invalid Number of input arguments! Expected 6 but found " + args.length)
       sys.exit(1)
     }
     
@@ -32,6 +32,7 @@ object LogParsingUsingDOM {
     val outputLocation = args(2)
     val inputFileDelimiter = args(3)
     val outputFileDelimiter = args(4)
+    val fixedColumns = args(5).toInt
     var tagMap:Map[String,String] = null
     
     val conf = new SparkConf().setAppName("LogProcessing")
@@ -45,7 +46,7 @@ object LogParsingUsingDOM {
            
            for(nodelist <- 0 to nodes.getLength-1){
              if(nodes.item(nodelist).getNodeName.equalsIgnoreCase("#text")){
-               logger.info(nodes.item(nodelist).getParentNode.getNodeName+" "+nodes.item(nodelist).getNodeValue)
+               //logger.info(nodes.item(nodelist).getParentNode.getNodeName+" "+nodes.item(nodelist).getNodeValue)
                tagMap+= (nodes.item(nodelist).getParentNode.getNodeName).toLowerCase() -> nodes.item(nodelist).getNodeValue
              }
              parseChildNodes(nodes.item(nodelist).getChildNodes)
@@ -56,7 +57,7 @@ object LogParsingUsingDOM {
     def parseLog(inputLine:String):String = {
         
     val lineArray = inputLine.split("\\"+inputFileDelimiter)
-      val urlEncodedText = lineArray(4)
+      val urlEncodedText = lineArray(fixedColumns)
       
       val decodedTExt = URLDecoder.decode(urlEncodedText,"UTF-8")
       val decodedTextRemovedHeader = decodedTExt.replace(decodedTExt.substring(0, decodedTExt.indexOf("?>")+2), "")
@@ -68,14 +69,16 @@ object LogParsingUsingDOM {
          try{
          xmlParseddata = dBuilder.parse(new InputSource(new StringReader(decodedTextRemovedHeader)));
          }catch {
-           case t: Exception => logger.info("exception in loading the xml data")
+           case t: Exception => //logger.info("exception in loading the xml data")
             return inputLine+inputFileDelimiter+"parsing failed.error message:"+t.getMessage+inputFileDelimiter+"BADRECTRUE"
          }
       
          val rootTagName = xmlParseddata.getElementsByTagName(xmlParseddata.getDocumentElement().getNodeName())
       
-     
-      var returnResult = lineArray(0)+outputFileDelimiter+lineArray(1)+outputFileDelimiter+lineArray(2)+outputFileDelimiter+lineArray(3)+outputFileDelimiter
+        		 var returnResult:String = ""
+        		 for(fixedVal <- 0 to fixedColumns -1){
+        			 returnResult = returnResult + lineArray(fixedVal)+outputFileDelimiter
+        		 }
       
       //adding the root tag name
       returnResult = returnResult+rootTagName.item(0).getNodeName+outputFileDelimiter
@@ -92,7 +95,7 @@ object LogParsingUsingDOM {
       for(headerValues <- xmlHeaderArray){
 
     	  if(!tagMap.contains(headerValues)){
-    		  outputList = outputList :+ "none"
+    		  outputList = outputList :+ ""
     	  }
     	  else{
     		  outputList = outputList :+ tagMap(headerValues)
