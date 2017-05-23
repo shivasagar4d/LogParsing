@@ -1,0 +1,12 @@
+Steps to Run:
+
+1. copy the input file into a directory.
+2. copy the header file into another directory
+3. Build the code using the maven pom. And copy the created jar file to the cluster local. OR Use the prebuilt jar.
+	After maven build jar with name "log-processing-0.0.1-SNAPSHOT.jar" will get created in taget folder.
+	Copy the jar to the cluster local
+3. Run the follwing spark submit command.
+
+syntax: spark-submit --class com.log.impl.LogParsingUsingDOM <jar_location_name> <input_directory_location> <header_directory_location> <output_directory> <input_file_delimiter> <output_delimiter>
+
+example: spark-submit --class com.log.impl.LogParsingUsingDOM /home/amit/Desktop/logprojectdata/log-processing-0.0.1-SNAPSHOT.jar xmlParsingTest/input xmlParsingTest/header xmlParsingTest/output500 ";" "|" 
