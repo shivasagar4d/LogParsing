@@ -1,0 +1,1 @@
+﻿businesscode;clientipaddress;clientplatform;completionstatus;logrecordtype;printercode;printerid;printerlocation;relationshipcode;serverid;sessionenddatetime;sessionid;sessionstartdatetime;transcode;transid
