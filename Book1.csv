@@ -1,0 +1,14 @@
+State,Country,device,Plant,date,Id,name,comments1,comments2,car,keyword_1,keyword_2,keyword_3,keyword_4,keyword_5,keyword_6,keyword_7
+VN,US,Mobile,ABC,25-12-2014,1234,xyz,a,z,bmw,1,1,0,1,1,0,0
+VN,US,Mobile,ABC,25-12-2014,1234,xyz,a,z,bmw,2,0,0,2,0,0,0
+VN,US,Mobile,ABC,25-13-2014,1234,xyz,a,z,bmw,0,0,0,0,0,0,0
+VN,US,Mobile,ABC,25-14-2014,1234,xyz,a,z,bmw,0,0,2,0,0,2,2
+TX,US,Mobile,ABC,25-12-2015,1234,xyz,a,z,bmw,1,0,1,1,0,1,1
+VN,US,Mobile,ABC,25-12-2015,1234,xyz,a,z,bmw,1,0,1,1,0,1,1
+VN,US,Mobile,ABC,25-12-2015,1234,xyz,a,z,bmw,1,0,1,1,0,1,1
+VN,US,Mobile,ABC,25-12-2015,1234,xyz,a,z,bmw,1,0,1,1,0,1,1
+TX,US,phone,ABC,25-12-2014,1234,xyz,a,z,bmw,1,1,0,1,1,0,0
+TX,US,phone,ABC,25-12-2014,1234,xyz,a,z,bmw,2,0,0,2,0,0,0
+TX,US,Mobile,ABC,25-13-2014,1234,xyz,a,z,bmw,0,0,0,0,0,0,1
+VN,US,Mobile,ABC,25-14-2014,1234,xyz,a,z,bmw,0,0,2,0,0,2,2
+VN,US,Mobile,ABC,25-12-2015,1234,xyz,a,z,bmw,1,0,1,1,0,1,1
